@@ -9,7 +9,7 @@ namespace HomeWork15
     /// <summary>
     /// Реализация с применением Parallel LINQ (PLINQ).
     /// </summary>
-    public class PlinqExecutor 
+    public class PlinqExecutor: IExecutor 
     {   
         public long CalculateSum(int n, int m)
         {

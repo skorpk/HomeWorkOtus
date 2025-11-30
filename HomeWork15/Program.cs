@@ -38,37 +38,38 @@ namespace HomeWork15
 
             Console.WriteLine(new string('=', 60));
             Console.WriteLine("");
-
-
+            
             #region Реализация с Threads
             foreach (int size in sizes)
             {
                 Console.WriteLine("Реализация с Threads");
-                var threadExecutor = new ThreadExecutor();
+                IExecutor threadExecutor = new ThreadExecutor();
                 var sw = Stopwatch.StartNew();
 
-                long threadSum = threadExecutor.CalculateSum(N, size);
+                long threadSum = Run(threadExecutor, N, size);
                 sw.Stop();
                 var threadTime = sw.ElapsedMilliseconds;
                 Console.WriteLine($"ThreadSum: {threadSum}, ExecutionTime: {threadTime}");
             }
             #endregion
+            
             Console.WriteLine(new string('=', 60));
             Console.WriteLine("");
-
+            
             #region Реализация с PLINQ
             foreach (int size in sizes)
             {
                 Console.WriteLine("Реализация с PLINQ");
-                var plinqExecutor = new PlinqExecutor();
+                IExecutor plinqExecutor = new PlinqExecutor();
 
                 var sw = Stopwatch.StartNew();
-                long plinqSum = plinqExecutor.CalculateSum(N, size);
+                long plinqSum = Run(plinqExecutor, N, size);
                 sw .Stop();
                 var plinqTime = sw.ElapsedMilliseconds;
                 Console.WriteLine($"PlinqSum: {plinqSum}, ExecutionTime: {plinqTime}");
             }
             #endregion
+            
                 Console.WriteLine(new string('=', 60));
                 Console.WriteLine("");
              Console.ReadKey();
@@ -104,5 +105,9 @@ namespace HomeWork15
             Console.WriteLine(new string('=', 60));
         }
 
+        static long Run(IExecutor executor, int n, int m)
+        {
+            return executor.CalculateSum(n, m);
+        }
     }
 }

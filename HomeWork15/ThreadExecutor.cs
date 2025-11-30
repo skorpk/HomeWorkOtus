@@ -14,7 +14,7 @@ namespace HomeWork15
      * Для каждго такого диапазона считаем частичную сумму в отдельном потоке 
      * Объединяем + суммируем частичные суммы 
      */
-    public class ThreadExecutor 
+    public class ThreadExecutor : IExecutor
     {
         public long CalculateSum(int n, int m)
         {
