@@ -20,6 +20,8 @@ namespace HomeWork15
                 100_000, 1_000_000, 10_000_000,
                 //100_000_000
                 };
+            IExecutor executor = new ThreadExecutor();
+            long sum = 0;
             //получение информации о системе
             SystemInformationGet();
             #region Последовательное выполнение
@@ -28,9 +30,8 @@ namespace HomeWork15
                 Console.WriteLine($"Size: {/*M*/size}");
                 Console.WriteLine("Реализация последовательного вычисления");
                 var sw = Stopwatch.StartNew();
-                long sum = CalculateSequential(N, /*M*/size);
+                sum = CalculateSequential(N, /*M*/size);
                 sw.Stop();
-
                 var sequentialTime = sw.ElapsedMilliseconds;
                 Console.WriteLine($"SequentialSum: {sum}, ExecutionTime: {sequentialTime}");
             }
@@ -39,17 +40,16 @@ namespace HomeWork15
             Console.WriteLine(new string('=', 60));
             Console.WriteLine("");
             
+            
             #region Реализация с Threads
             foreach (int size in sizes)
             {
                 Console.WriteLine("Реализация с Threads");
-                IExecutor threadExecutor = new ThreadExecutor();
                 var sw = Stopwatch.StartNew();
-
-                long threadSum = Run(threadExecutor, N, size);
+                sum = Run(executor, N, size);
                 sw.Stop();
                 var threadTime = sw.ElapsedMilliseconds;
-                Console.WriteLine($"ThreadSum: {threadSum}, ExecutionTime: {threadTime}");
+                Console.WriteLine($"ThreadSum: {sum}, ExecutionTime: {threadTime}");
             }
             #endregion
             
@@ -60,13 +60,12 @@ namespace HomeWork15
             foreach (int size in sizes)
             {
                 Console.WriteLine("Реализация с PLINQ");
-                IExecutor plinqExecutor = new PlinqExecutor();
-
-                var sw = Stopwatch.StartNew();
-                long plinqSum = Run(plinqExecutor, N, size);
+                executor = new PlinqExecutor();
+                var sw = Stopwatch.StartNew(); 
+                sum = Run(executor, N, size);
                 sw .Stop();
                 var plinqTime = sw.ElapsedMilliseconds;
-                Console.WriteLine($"PlinqSum: {plinqSum}, ExecutionTime: {plinqTime}");
+                Console.WriteLine($"PlinqSum: {sum}, ExecutionTime: {plinqTime}");
             }
             #endregion
             
