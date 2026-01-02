@@ -49,10 +49,10 @@ namespace NumberGuess.Solid.Engine
                 switch (_result)
                 {
                     case Enum.Result.TooSmall:
-                        _output.WriteLine("Не угадал. Введеное число больше");
+                        _output.WriteLine("Не угадал. Введеное число меньше");
                         break;
                     case Enum.Result.TooLarge:
-                        _output.WriteLine("Не угадал. Введеное число меньше");
+                        _output.WriteLine("Не угадал. Введеное число больше");
                         break;
                     case Enum.Result.Correct:
                         _output.WriteLine($"Угадал! Загаданное число {secret}");
